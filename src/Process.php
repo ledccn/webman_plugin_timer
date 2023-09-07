@@ -34,6 +34,9 @@ class Process
      */
     public function onWorkerStart(Worker $worker): void
     {
+        if (!is_dir($this->timer_dir)) {
+            return;
+        }
         $dir_iterator = new RecursiveDirectoryIterator($this->timer_dir);
         $iterator = new RecursiveIteratorIterator($dir_iterator);
         foreach ($iterator as $file) {
