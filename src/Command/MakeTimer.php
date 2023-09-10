@@ -47,6 +47,7 @@ class MakeTimer extends Command
             $output->writeln("存在文件：" . $file);
         } else {
             $this->createTimer($file, $class, $interval);
+            $output->writeln("创建成功：" . $file);
         }
 
         return self::SUCCESS;
@@ -73,7 +74,8 @@ namespace app\\timer;
 use Ledc\\Timer\\TimerInterface;
 
 /**
- * 通知
+ * 单进程轻量定时器
+ * - 禁止运行长耗时任务
  */
 class {$class}Timer implements TimerInterface
 {
