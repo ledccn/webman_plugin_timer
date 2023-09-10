@@ -72,6 +72,7 @@ class MakeTimer extends Command
 namespace app\\timer;
 
 use Ledc\\Timer\\TimerInterface;
+use Workerman\\Worker;
 
 /**
  * 单进程轻量定时器
@@ -79,6 +80,14 @@ use Ledc\\Timer\\TimerInterface;
  */
 class {$class}Timer implements TimerInterface
 {
+/**
+     * 构造函数
+     * @param Worker \$worker
+     */
+    public function __construct(protected Worker \$worker)
+    {
+    }
+
     /**
      * @return int
      */

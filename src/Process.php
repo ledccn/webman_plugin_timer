@@ -49,15 +49,15 @@ class Process
                 $class = str_replace('/', "\\", substr(substr($file, strlen(base_path())), 0, -4));
                 if (is_a($class, TimerInterface::class, true)) {
                     /** @var TimerInterface $timer */
-                    $timer = new $class();
+                    $timer = new $class($worker);
                     $time_interval = $timer->interval();
                     if (0 >= $time_interval) {
                         echo '间隔小于等于0，已忽略：' . $class;
                         continue;
                     }
-                    $timer_id = Timer::add($time_interval, function (TimerInterface $timer) use (&$timer_id) {
+                    $timer_id = Timer::add($time_interval, function (TimerInterface $timer, Worker $worker) use (&$timer_id) {
                         $timer->invoke($timer_id);
-                    }, [$timer]);
+                    }, [$timer, $worker]);
                 }
             }
         }
